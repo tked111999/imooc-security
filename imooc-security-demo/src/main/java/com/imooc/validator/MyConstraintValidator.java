@@ -20,6 +20,6 @@ public class MyConstraintValidator implements ConstraintValidator<MyConstraint, 
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
         helloService.sayHello("testname");
         System.out.println(o);
-        return true;
+        return false;
     }
 }

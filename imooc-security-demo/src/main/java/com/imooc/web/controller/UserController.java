@@ -48,4 +48,16 @@ public class UserController {
         user.setId("1");
         return user;
     }
+
+    @PutMapping("/{id:\\d+}")
+    public User updateUser(@Valid @RequestBody User user, BindingResult errors) {
+
+        if(errors.hasErrors()) {
+            errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+        }
+
+        // 假装有创建操作并返回带有id的用户
+        user.setId("1");
+        return user;
+    }
 }
