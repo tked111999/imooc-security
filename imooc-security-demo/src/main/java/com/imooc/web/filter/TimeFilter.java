@@ -6,7 +6,7 @@ import javax.servlet.*;
 import java.io.IOException;
 import java.util.Date;
 
-@Component
+//@Component // 测试web.config.WebConfig包下的配置类是否生效
 public class TimeFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
