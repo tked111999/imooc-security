@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+//@Configuration // 开启配置类
 public class WebConfig {
 
     @Bean
