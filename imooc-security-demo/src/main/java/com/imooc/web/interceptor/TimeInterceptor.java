@@ -19,7 +19,7 @@ public class TimeInterceptor implements HandlerInterceptor {
         // 拦截的类名和方法名
         System.out.println("类名：" + ((HandlerMethod) handler).getBean().getClass().getName());
         System.out.println("方法名：" + ((HandlerMethod) handler).getMethod().getName());
-        return false;
+        return true;
     }
 
     @Override
