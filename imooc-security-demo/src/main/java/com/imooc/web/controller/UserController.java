@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.imooc.dto.FileInfo;
 import com.imooc.dto.User;
 import com.imooc.dto.UserQueryCondition;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,7 @@ import java.util.*;
 @RequestMapping(value = "/user")
 public class UserController {
 
+    @ApiOperation("获取用户列表（@ApiOperation）")
     @GetMapping()
     @JsonView(User.UserSimpleView.class)
     public List<User> query(UserQueryCondition user) {
@@ -33,7 +37,7 @@ public class UserController {
 
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
-    public User getUser(@PathVariable String id) {
+    public User getUser(@ApiParam("这是一个id啊（@ApiParam）") @PathVariable String id) {
         System.out.println("id: " + id);
         User user = new User();
         user.setUsername("test");
@@ -42,11 +46,9 @@ public class UserController {
 
     @PostMapping
     public User createUser(@Valid @RequestBody User user, BindingResult errors) {
-
         if(errors.hasErrors()) {
             errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
         }
-
         // 假装有创建操作并返回带有id的用户
         user.setId("1");
         return user;
