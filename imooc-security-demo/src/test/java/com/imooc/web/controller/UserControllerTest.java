@@ -86,13 +86,4 @@ public class UserControllerTest {
         System.out.println(result);
     }
 
-    @Test
-    public void whenUploadSuccess() throws Exception {
-        String result = mockMvc.perform(MockMvcRequestBuilders.fileUpload("/file")
-                .file(new MockMultipartFile("file", "test.txt", "multipart/form-data", "hello upload".getBytes())))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn().getResponse().getContentAsString();
-
-        System.out.println(result);
-    }
 }
