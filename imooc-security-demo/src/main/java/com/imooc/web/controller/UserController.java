@@ -1,17 +1,18 @@
 package com.imooc.web.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.imooc.dto.FileInfo;
 import com.imooc.dto.User;
 import com.imooc.dto.UserQueryCondition;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -50,13 +51,7 @@ public class UserController {
     }
 
     @PutMapping("/{id:\\d+}")
-    public User updateUser(@Valid @RequestBody User user, BindingResult errors) {
-
-        if(errors.hasErrors()) {
-            errors.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
-        }
-
-        // 假装有创建操作并返回带有id的用户
+    public User updateUser(@Valid @RequestBody User user) {
         user.setId("1");
         return user;
     }
