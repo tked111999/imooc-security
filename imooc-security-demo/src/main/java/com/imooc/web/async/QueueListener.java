@@ -33,7 +33,7 @@ public class QueueListener implements ApplicationListener<ContextRefreshedEvent>
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    log.info("监听器一直在运行着……");
+//                    log.info("监听器一直在运行着……");
                 }
             }
         }).start();
