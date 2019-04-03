@@ -18,9 +18,16 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
+                .loginPage("/imooc-signIn.html")// 自定义登录页面
+                .loginProcessingUrl("/authentication/form")// 登录页面提交form请求
                 .and()
                 .authorizeRequests()
+                .antMatchers("/imooc-signIn.html").permitAll()// 不拦截自定义登录页面访问
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                .csrf().disable()// 关闭请求伪造防护功能
+                ;
+
     }
 }
