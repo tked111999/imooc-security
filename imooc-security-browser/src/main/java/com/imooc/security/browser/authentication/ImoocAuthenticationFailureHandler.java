@@ -1,11 +1,13 @@
 package com.imooc.security.browser.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.imooc.security.core.properties.LoginType;
+import com.imooc.security.core.properties.SecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -21,17 +23,23 @@ import java.io.IOException;
  **/
 @Slf4j
 @Component
-public class ImoocAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private SecurityProperties securityProperties;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        log.info("登录失败");
-        response.setContentType("application/json;charset=UTF-8");
-        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.getWriter().write(objectMapper.writeValueAsString(exception));
+        if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+            log.info("登录失败");
+            response.setContentType("application/json;charset=UTF-8");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.getWriter().write(objectMapper.writeValueAsString(exception));
+        } else {
+            super.onAuthenticationFailure(request, response, exception);
+        }
     }
 
 }
