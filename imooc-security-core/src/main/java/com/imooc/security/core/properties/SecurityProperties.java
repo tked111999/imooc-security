@@ -10,7 +10,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "imooc.security")
 public class SecurityProperties {
 
-    // 小配置类
+    // 配置类
     private BrowserProperties browser = new BrowserProperties();
+
+    private ValidateCodeProperties code = new ValidateCodeProperties();
 
 }
