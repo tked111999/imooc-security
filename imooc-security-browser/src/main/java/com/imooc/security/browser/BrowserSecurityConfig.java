@@ -37,7 +37,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(imoocAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/require", securityProperties.getBrowser().getLoginPage()).permitAll()// 不拦截自定义登录页面访问
+                .antMatchers("/authentication/require",
+                        securityProperties.getBrowser().getLoginPage(),
+                        "/code/image"
+                ).permitAll()// 不拦截自定义登录页面访问
                 .anyRequest()
                 .authenticated()
                 .and()
